@@ -1,12 +1,26 @@
 package org.example;
+
+import org.example.model.Category;
+import org.example.model.Expense;
+import org.example.repository.ExpenseRepository;
+import org.example.repository.InMemoryExpenseRepository;
+import org.example.service.ExpenseService;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+
 class Main {
-     static void main() {
-         Expense expense = new Expense(1, new BigDecimal(120), Category.FOOD, LocalDate.now(), "testing");
-         System.out.println(expense.toString());
-         System.out.println(expense.hashCode());
-    }
+     public static void main(String[] args) {
+         ExpenseRepository repository = new InMemoryExpenseRepository();
+         ExpenseService service = new ExpenseService(repository);
+
+         Expense expense = service.save(new BigDecimal(120), Category.FOOD, LocalDate.now(), null);
+         System.out.println(expense);
+
+         expense.setAmount(new BigDecimal(100));
+         repository.save(expense);
+
+     }
 }
 

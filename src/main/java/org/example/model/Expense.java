@@ -1,18 +1,18 @@
-package org.example;
+package org.example.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
 public class Expense {
-    private final int id;
+    private final Long id;
 
     private BigDecimal amount;
     private Category category;
     private LocalDate date;
     private String description;
 
-    public Expense(int id, BigDecimal amount, Category category, LocalDate date, String description) {
+    public Expense(Long id, BigDecimal amount, Category category, LocalDate date, String description) {
         this.id = id;
         this.amount = amount;
         this.category = category;
@@ -20,7 +20,7 @@ public class Expense {
         this.description = description;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
@@ -34,22 +34,17 @@ public class Expense {
     public Category getCategory() {
         return category;
     }
-    public void setCategory(Category category) {
-        this.category = category;
-    }
 
     public LocalDate getDate() {
         return date;
-    }
-    public void setDate(LocalDate date) {
-        this.date = date;
     }
 
     public String getDescription() {
         return description;
     }
-    public void setDescription(String description) {
-        this.description = description;
+
+    public Expense withId(long id) {
+        return new Expense(id, amount, category, date, description);
     }
 
     @Override
@@ -59,13 +54,14 @@ public class Expense {
 
     @Override
     public int hashCode() {
-        return Integer.hashCode(id);
+        return Objects.hash(id);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Expense other)) return false;
+        if (id == null || other.id == null) return false;
         return this.id == other.id;
     }
 }
