@@ -18,9 +18,6 @@ class Main {
          Expense expense = service.save(new BigDecimal(120), Category.FOOD, LocalDate.now(), null);
          System.out.println(expense);
 
-         expense.setAmount(new BigDecimal(100));
-         repository.save(expense);
-
      }
 }
 
